@@ -1,0 +1,30 @@
+{
+  "name": "blindnet-client-js-example",
+  "version": "1.0.0",
+  "description": "Blindnet JavaScript client integration example.",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "author": "blindnet",
+  "license": "ISC",
+  "dependencies": {
+    "blindnet-sdk-js": "^1.0.5",
+    "file-saver": "^2.0.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
+  }
+}
