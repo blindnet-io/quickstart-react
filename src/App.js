@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react"
-import Blindnet from 'blindnet-sdk-js'
+import { Blindnet } from '@blindnet/sdk-javascript'
+import { createTempUserToken, createUserToken } from '@blindnet/token-generator'
 import { saveAs } from 'file-saver'
 
 const FORM_INITIALIZED = 'FORM_INITIALIZED'
@@ -9,11 +10,14 @@ const FILE_ENCRYPTED = 'FILE_ENCRYPTED'
 const ENCRYPTED_FILE_SELECTED = 'ENCRYPTED_FILE_SELECTED'
 const FILE_DECRYPTED = 'FILE_DECRYPTED'
 
-export default class App extends PureComponent {
+const blindnetEndpoint = 'https://blindnet-api-xtevwj4sdq-ew.a.run.app'
+const userId = `ui-test-${new TextDecoder().decode(crypto.getRandomValues(new Uint8Array(20)).map(x => x % 26 + 97))}`
+const groupId = `ui-group-${new TextDecoder().decode(crypto.getRandomValues(new Uint8Array(20)).map(x => x % 26 + 97))}`
 
-  backendHost = 'http://localhost:9000'
-  blindnetEndpoint = 'https://blindnet-api-xtevwj4sdq-ew.a.run.app'
-  userId = `ui-test-${Math.random().toString(5).substring(2)}`
+const appId = 'd8874507-c77e-4659-9f6a-d903f9d8d98e'
+const appKey = 'mUWnnwzLXXbVYzX3p7Q/tvGHkB28J0ljVtkPJ9gUgGvdXko0kqqxaQ1DPqxxjgd7wbxriqtMaEhhITdD46gjxg=='
+
+export default class App extends PureComponent {
 
   constructor(props) {
     super(props)
@@ -25,12 +29,11 @@ export default class App extends PureComponent {
   connect = async () => {
     const { secret } = this.state
 
-    const token = await fetch(`${this.backendHost}/token/${this.userId}`).then(resp => resp.text())
+    const token = await createUserToken(userId, groupId, appId, appKey)
+    const blindnet = Blindnet.init(token, blindnetEndpoint)
 
-    const blindnet = Blindnet.init(token, this.blindnetEndpoint)
-
-    const { blindnetPassword } = await Blindnet.deriveSecrets(secret)
-    await blindnet.connect(blindnetPassword)
+    const { blindnetSecret } = await Blindnet.deriveSecrets(secret)
+    await blindnet.connect(blindnetSecret)
 
     this.setState({ ...this.state, formState: USER_CONNECTED, blindnet })
   }
@@ -50,36 +53,30 @@ export default class App extends PureComponent {
   encryptFile = async () => {
     const { fileToEncrypt } = this.state
 
-    const fileBytes = await fileToEncrypt.arrayBuffer()
-    const fileMetadata = { name: fileToEncrypt.name }
+    const token = await createTempUserToken([userId], appId, appKey)
+    const blindnet = Blindnet.init(token, blindnetEndpoint)
 
-    const token = await fetch(`${this.backendHost}/tempToken/${this.userId}`).then(resp => resp.text())
-
-    const blindnet = Blindnet.init(token, this.blindnetEndpoint)
-
-    const { dataId, encryptedData } = await blindnet.encrypt(fileBytes, fileMetadata)
+    const { encryptedData } = await blindnet.encrypt(fileToEncrypt)
 
     saveAs(new Blob([encryptedData]), `${fileToEncrypt.name}-encrypted`)
 
-    this.setState({ ...this.state, formState: FILE_ENCRYPTED, fileId: dataId })
+    this.setState({ ...this.state, formState: FILE_ENCRYPTED })
   }
 
   decryptFile = async () => {
-    const { fileId, fileToDecrypt, blindnet } = this.state
+    const { fileToDecrypt, blindnet } = this.state
 
     const encryptedFileBytes = await fileToDecrypt.arrayBuffer()
 
-    const { data, metadata: metadataBytes } = await blindnet.decrypt(fileId, encryptedFileBytes)
+    const { data, metadata } = await blindnet.decrypt(encryptedFileBytes)
 
-    const metadata = JSON.parse(new TextDecoder().decode(metadataBytes))
+    saveAs(data, metadata.dataType.name)
 
-    saveAs(new Blob([data]), metadata.name)
-
-    this.setState({ ...this.state, file: undefined, formState: FILE_DECRYPTED, fileId })
+    this.setState({ ...this.state, file: undefined, formState: FILE_DECRYPTED })
   }
 
   render() {
-    const { formState, fileToEncrypt, fileToDecrypt } = this.state
+    const { formState } = this.state
 
     return (
       <div className='wrapper'>
