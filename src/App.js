@@ -10,12 +10,12 @@ const FILE_ENCRYPTED = 'FILE_ENCRYPTED'
 const ENCRYPTED_FILE_SELECTED = 'ENCRYPTED_FILE_SELECTED'
 const FILE_DECRYPTED = 'FILE_DECRYPTED'
 
-const blindnetEndpoint = 'https://blindnet-api-xtevwj4sdq-ew.a.run.app'
+const blindnetEndpoint = 'https://test.blindnet.io'
 const userId = `ui-test-${new TextDecoder().decode(crypto.getRandomValues(new Uint8Array(20)).map(x => x % 26 + 97))}`
 const groupId = `ui-group-${new TextDecoder().decode(crypto.getRandomValues(new Uint8Array(20)).map(x => x % 26 + 97))}`
 
-const appId = 'd8874507-c77e-4659-9f6a-d903f9d8d98e'
-const appKey = 'mUWnnwzLXXbVYzX3p7Q/tvGHkB28J0ljVtkPJ9gUgGvdXko0kqqxaQ1DPqxxjgd7wbxriqtMaEhhITdD46gjxg=='
+const appId = '3544e7cd-64a9-41b7-88dc-397bfdaeeaf3'
+const appKey = 'zB5IiU0xzkVdsH4NMXxrF90ZISL5kJnTHlt7h/Wbi/qVhch7Fw8J5AQ5j2PazaG5q114uApZRH4X1/kTKVx0Cw=='
 
 export default class App extends PureComponent {
 
