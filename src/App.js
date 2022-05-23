@@ -53,10 +53,10 @@ export default class App extends PureComponent {
   encryptFile = async () => {
     const { fileToEncrypt } = this.state
 
-    const token = await createTempUserToken([userId], appId, appKey)
+    const token = await createTempUserToken(groupId, appId, appKey)
     const blindnet = Blindnet.init(token, blindnetEndpoint)
 
-    const { encryptedData } = await blindnet.encrypt(fileToEncrypt)
+    const { encryptedData } = await blindnet.capture(fileToEncrypt).forUser(userId).encrypt()
 
     saveAs(new Blob([encryptedData]), `${fileToEncrypt.name}-encrypted`)
 
@@ -70,7 +70,7 @@ export default class App extends PureComponent {
 
     const { data, metadata } = await blindnet.decrypt(encryptedFileBytes)
 
-    saveAs(data, metadata.dataType.name)
+    saveAs(data, metadata.name)
 
     this.setState({ ...this.state, file: undefined, formState: FILE_DECRYPTED })
   }
