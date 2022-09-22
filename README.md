@@ -1,5 +1,5 @@
 <h1 align="center">
-  blindnet devkit<br />
+  blindnet encryption engine<br />
   React Quick Start App
 </h1>
 
@@ -7,7 +7,7 @@
 <p align=center><img src="https://user-images.githubusercontent.com/7578400/163549893-117bbd70-b81a-47fd-8e1f-844911e48d68.png#gh-dark-mode-only" height="80" /></p>
 
 <p align="center">
-  <strong>minimal React application demoing basic <a href="https://github.com/blindnet-io/sdk-javascript-client">blindnet devkit JS client SDK</a> usage</strong>
+  <strong>minimal React application demoing basic <a href="https://github.com/blindnet-io/sdk-javascript-client">blindnet encryption engine JS client SDK</a> usage</strong>
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://blindnet.dev/docs">Documentation</a>
+  <a href="https://blindnet.dev/docs/encryption">Documentation</a>
   &nbsp;•&nbsp;
   <a href="https://github.com/blindnet-io/quickstart-client-javascript-example/issues">Submit an Issue</a>
   &nbsp;•&nbsp;
@@ -28,21 +28,7 @@
 
 ## Get Started
 
-:rocket: Check out our [Quick Start Guide](https://blindnet.dev/docs/quickstart) to get started in a snap.
-
-<!-- TODO
-## Installation
-
-Use [{package manager or plateform}][install-tool] to install {project's name}:
-
-```bash
-{install-command}
-```
-
-## Usage
-
-📑 The API reference of {type of project, e.g. this SDK} is available on [blindnet.dev](https://blindnet.dev/docs/api_reference/[path-to-project}/latest).
--->
+:rocket: Check out our [Quick Start Guide](https://blindnet.dev/docs/encryption/quickstart) to get started in a snap.
 
 ## Contributing
 
@@ -63,14 +49,13 @@ Stay up to date with new releases and projects, learn more about how to protect 
 
 ## License
 
-The blindnet devkit React Quick Start App is available under [MIT][license] (and [here](https://github.com/blindnet-io/openness-framework/blob/main/docs/decision-records/DR-0001-oss-license.md) is why).
+The blindnet encryption engine React Quick Start App is available under [MIT][license] (and [here](https://github.com/blindnet-io/openness-framework/blob/main/docs/decision-records/DR-0001-oss-license.md) is why).
 
 <!-- project's URLs -->
 [new-issue]: https://github.com/blindnet-io/quickstart-client-javascript-example/issues/new/choose
 [fork]: https://github.com/blindnet-io/quickstart-client-javascript-example/fork
 
 <!-- common URLs -->
-[devkit]: https://github.com/blindnet-io/blindnet.dev
 [openness]: https://github.com/blindnet-io/openness-framework
 [product]: https://github.com/blindnet-io/product-management
 [request]: https://github.com/blindnet-io/devrel-management/issues/new?assignees=noelmace&labels=request%2Ctriage&template=request.yml&title=%5BRequest%5D%3A+
